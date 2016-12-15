@@ -8,11 +8,6 @@ int main(int argc, char** argv) {
 	
 	menu.MenuPrincipal();
 	
-	/*Cuenta c;
-	string cu = c.ObtenerNumeroCuenta();
-	
-	std::cout<<"\n\n"<<cu;*/
 	system("PAUSE");
 	return 0;
 }
-

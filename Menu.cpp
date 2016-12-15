@@ -51,20 +51,51 @@ void Menu::MenuPrincipal(){
 
 void Menu::MenuDepositos(){
 	
+	bool encontrado;
+	int opcion, monto, dinero;
+	string numero_cuenta, tipo_cuenta, chequera, identificacion, num_cuenta_temp, dinero_temp;
+	ifstream cuenta_in;
+	ofstream temp;
 
-	int opcion;
+	cout<<"Depositos"<<endl;
+	cout<<"=============="<<endl;
+		
+	cuenta_in.open("cuentas.txt");
+	temp.open("temp.txt");
 	
-	do{
+	cout<<"numero de la cuenta a depositar : ";
+	cin>>num_cuenta_temp;
+	cuenta_in>>numero_cuenta;
+	
+	while(!cuenta_in.eof()){
 		
-		cout<<"Depositos"<<endl;
-		cout<<"1. Administrador "<<endl;
-		cout<<"2. Persona natural "<<endl;
-		cout<<"3. Atras "<<endl;
+		cuenta_in>>tipo_cuenta>>dinero>>chequera>>identificacion;
 		
-		cin>>opcion;		
+		if(num_cuenta_temp == numero_cuenta){	
+			
+			cout<<"Monto a depositar $ ";
+			cin>>monto;
+			
+			cout<<"monto cuenta : "<<dinero<<" monto depositado : "<<monto<<" Totla : "<<(dinero + monto)<<endl;
+			encontrado = true;
+			
+			temp<<numero_cuenta<<" "<<tipo_cuenta<<" "<<(dinero + monto)<<" "<<chequera<<" "<<identificacion<<endl;
+		}else{
+			temp<<numero_cuenta<<" "<<tipo_cuenta<<" "<<dinero<<" "<<chequera<<" "<<identificacion<<endl;
+		}
 		
-	}while(opcion != 3);
-	system("CLS");
+		numero_cuenta="";
+		cuenta_in>>numero_cuenta;
+	}
+	
+	if(!encontrado){
+		cout<<"la cuenta no existe"<<endl;
+	}
+	cuenta_in.close();
+	temp.close();
+	remove("cuentas.txt");
+	rename("temp.txt","cuentas.txt");
+	//system("CLS");
 	
 }
 
@@ -210,6 +241,7 @@ void Menu::MenuCrearUsuario(){
 	string 	perfil;
 	
 	fstream usuariostxt("usuarios.txt", ios::app);
+	ofstream cajero, caja;
 	Usuario empleado; // empleado viene de la clase Usuario
 	
 	/* Creamos un usuario
@@ -221,9 +253,7 @@ void Menu::MenuCrearUsuario(){
 	cout<<"=========================="<<endl;
 	cout<<"Escoger el tipo de usuario a crear "<<endl;
 	cout<<"1. Administrador"<<endl;
-	cout<<"2. Caja "<<endl;
-	cout<<"3. Cajero"<<endl;
-	cout<<"4. Atras."<<endl;
+	cout<<"2. Atras."<<endl;
 	
 	cin>>opcion;
 	
@@ -270,6 +300,9 @@ void Menu::MenuCrearUsuario(){
 			}
 			usuariostxt.close();
 			break;
+		
+		default:
+			break;
 	}		
 }
 
@@ -291,9 +324,7 @@ void Menu::MenuEditarUsuario(){
 	cout<<"=========================="<<endl;
 	cout<<"Escoger el tipo de usuario a editar "<<endl;
 	cout<<"1. Administrador"<<endl;
-	cout<<"2. Caja "<<endl;
-	cout<<"3. Cajero"<<endl;
-	cout<<"4. Atras."<<endl;
+	cout<<"2. Atras."<<endl;
 	
 	cin>>opcion;
 	
@@ -434,9 +465,7 @@ void Menu::MenuConsultarUsuario(){
 	cout<<"=========================="<<endl;
 	cout<<"Escoger el tipo de usuario a consultar "<<endl;
 	cout<<"1. Administrador"<<endl;
-	cout<<"2. Caja "<<endl;
-	cout<<"3. Cajero"<<endl;
-	cout<<"4. Atras."<<endl;
+	cout<<"2. Atras."<<endl;
 	
 	cin>>opcion;
 	
@@ -492,9 +521,7 @@ void Menu::MenuEliminarUsuario(){
 	cout<<"=========================="<<endl;
 	cout<<"Escoger el tipo de usuario a eliminar "<<endl;
 	cout<<"1. Administrador"<<endl;
-	cout<<"2. Caja "<<endl;
-	cout<<"3. Cajero"<<endl;
-	cout<<"4. Atras."<<endl;
+	cout<<"2. Atras."<<endl;
 	
 	cin>>opcion;
 	
@@ -662,7 +689,7 @@ void Menu::MenuCliente(){
 							cout<<"4. Identificacion"<<endl;
 							cout<<"5. Nacionalidad"<<endl;
 							cout<<"6. Edad"<<endl;
-							cout<<"5. Atras"<<endl;
+							cout<<"7. Atras"<<endl;
 						
 							cin>>opcion2;
 							
@@ -709,8 +736,8 @@ void Menu::MenuCliente(){
 							}
 						
 							system("CLS");
-							opcion2=5;	
-						}while(opcion2!=5);
+							opcion2=7;	
+						}while(opcion2!=7);
 					}else{
 						temp<<nombre<<" "<<apellido<<" "<<direccion<<" "<<identificacion<<" "<<nacionalidad<<" "<<edad<<endl;
 					}
@@ -828,15 +855,17 @@ void Menu::MenuCuentas(){
 				if(!this->usuario.verificaCliente(identificacion)){
 					cout<<"El cliente no esta registrado en la base de datos "<<endl;
 				}else{
-					string tipo_cuenta_temp, chequera_temp;
+					string tipo_cuenta_temp;
 					cout<<"Tipo de cuenta "<<endl;
 					cout<<"1. Ahorro \t\t\t\t 2. Coriente : ";
 					cin>>tipo_cuenta_temp;
-					tipo_cuenta = (tipo_cuenta_temp == "1") ? "ahorro" : "corriente";
-					cout<<"\n ¿Esta cuenta maneja chequera ?"<<endl;
-					cout<<"1. Si \t\t\t\t 2. No : ";
-					cin>>chequera_temp;
-					chequera = (chequera_temp == "1") ? "si" : "no";
+					if(tipo_cuenta_temp == "2"){
+						tipo_cuenta = "corriente";
+						chequera = "si";
+					}else{
+						tipo_cuenta = "ahorro";
+						chequera = "no";
+					}
 					cout<<"\n Dinero disponible : $ ";
 					cin>>dinero_disponible;
 					
@@ -956,4 +985,3 @@ void Menu::MenuChequera(){
 void Menu::Pausa(int segundo){
 	Sleep(segundo*1000);
 }
-

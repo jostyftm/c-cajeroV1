@@ -62,3 +62,4 @@ bool Persona::verificaCliente(string cedula){
 Persona::~Persona()
 {
 }
+

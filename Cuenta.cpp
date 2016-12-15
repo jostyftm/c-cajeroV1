@@ -155,3 +155,4 @@ bool Cuenta::VerificarCuentaCliente(string cuenta, string cedula){
 Cuenta::~Cuenta()
 {
 }
+
