@@ -11,6 +11,12 @@ class Cuenta
 		string ObtenerNumeroCuenta();
 		string ObtenerNumeroChequera();
 		
+		string ObtenerNumeroCuentaPorChequera(string chequera);
+		int ObtenerDineroDisponible(string cuenta);
+		
+		void ActualizarSaldo(string cuenta, int monto, string operacion);
+		
+		bool VerificarCheque(string chequera, string cheque);
 		bool VerificarNumeroCuenta(string Ncuenta);
 		bool VerificarNumeroChequera(string Nchequera);
 		bool VerificarTipoCuenta(string tipo, string cuenta);

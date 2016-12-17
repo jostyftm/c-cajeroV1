@@ -4,9 +4,9 @@
 
 int main(int argc, char** argv) {
 	
-	Menu menu;
+	Menu menu; //Objeto de la clase menu
 	
-	menu.MenuPrincipal();
+	menu.MenuPrincipal();//Mostramos en menu principal
 	
 	system("PAUSE");
 	return 0;

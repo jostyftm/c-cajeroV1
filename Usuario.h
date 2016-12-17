@@ -17,6 +17,8 @@ class Usuario : public Persona
 		long dineroDisponible;
 		
 		bool iniciarSession(string cor, string con, string per);
+		void actualizarSaldoCajero(string clave, int monto, string operacion);
+		int ObtenerSaldoCajero(string usuario);
 		
 		~Usuario();
 	protected:

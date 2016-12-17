@@ -13,8 +13,6 @@ class Menu
 		Menu();
 		
 		void MenuPrincipal();
-		void MenuDepositos();
-		void MenuRetiros();
 		void MenuIniciarSession();
 		
 		// Funciones del Super Adminsitrador
@@ -31,7 +29,13 @@ class Menu
 		void MenuChequera();
 		void MenuAsignarDineroCajero();
 		
-		//
+		//Funciones para la caja
+		void MenuCaja(string usuario);
+		void MenuDepositos(string usuario);
+		void MenuRetiros(string usuario);
+		void MenuCheque(string usuario);
+		
+		//Estetica
 		void Pausa(int segundo);
 		
 		~Menu();

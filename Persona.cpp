@@ -8,48 +8,21 @@ Persona::Persona()
 {
 }
 
-// Funciones Settters -> para asignar valores a las variables de la clase
-void Persona::setNombre(string nombre){
-	this->nombre = nombre;
-}
-void Persona::setApellido(string apellido){
-	this->apellido = apellido;
-}
-void Persona::setDireccion(string direccion){
-	this->direccion = direccion;
-}
-void Persona::setidenificacion(string identificacion){
-	this->identificacion = identificacion;
-}
-void Persona::setNacionalidad(string nacionalidad){
-	this->nacionalidad = nacionalidad;
-}
-void Persona::setEdad(string edad){
-	this->edad = edad;
-}
-void Persona::setSucursal(string sucursal){
-	this->sucursal = sucursal;
-}
-
-
-// Funciones Gettters -> para retornar el valor de una variable de la clase
-string Persona::getNombre(){
-	return this->nombre;
-}
-
+//Funcion que verifica si un cliente existe
 bool Persona::verificaCliente(string cedula){
 
-	ifstream cliente_in("clientes.txt");
+	ifstream cliente_in("clientes.txt");//Abrimos el archivo
+	
 	string  nombre, apellido, direccion, identificacion, nacionalidad, edad, clave;
 	
-	
-	cliente_in>>nombre;
+	cliente_in>>nombre;//Leemos el primer campo de la primera linea
 		
-    while(!cliente_in.eof()){
+    while(!cliente_in.eof()){//Recorremos hasta que llegue no halla lineas
     	
     	cliente_in>>apellido>>direccion>> identificacion >> nacionalidad>>edad;
     	
     	if(cedula == identificacion){
+    		//Preguntamos si la cedula a buscar coincide con alguna que este en el archivo clientes.txt
     		return true;
 		}
     	
